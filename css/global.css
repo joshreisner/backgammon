@@ -7,14 +7,14 @@ body #board div.side div.point div.piece.ui-draggable-dragging{-webkit-opacity:0
 body #board div.side div.die{width:50px;height:50px;background-color:#eeeeee;-webkit-box-shadow:5px 5px 20px 5px rgba(0, 0, 0, 0.25);-moz-box-shadow:5px 5px 20px 5px rgba(0, 0, 0, 0.25);box-shadow:5px 5px 20px 5px rgba(0, 0, 0, 0.25);-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-moz-background-clip:padding;-webkit-background-clip:padding-box;background-clip:padding-box;position:absolute;top:340px;cursor:pointer;}body #board div.side div.die#die1{right:270px;}
 body #board div.side div.die#die2{right:190px;}
 body #board div.side div.die div.face{display:none;}body #board div.side div.die div.face.active{display:block;}
-body #board div.side div.die div.face div.pip{width:10px;height:10px;background-color:#000000;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-moz-background-clip:padding;-webkit-background-clip:padding-box;background-clip:padding-box;position:absolute;}body #board div.side div.die div.face div.pip.left{left:7.5px;}
+body #board div.side div.die div.face div.pip{width:10px;height:10px;background-color:#222222;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-moz-background-clip:padding;-webkit-background-clip:padding-box;background-clip:padding-box;position:absolute;}body #board div.side div.die div.face div.pip.left{left:7.5px;}
 body #board div.side div.die div.face div.pip.center{left:20px;}
 body #board div.side div.die div.face div.pip.right{right:7.5px;}
 body #board div.side div.die div.face div.pip.top{top:7.5px;}
 body #board div.side div.die div.face div.pip.middle{top:20px;}
 body #board div.side div.die div.face div.pip.bottom{bottom:7.5px;}
 body #board div.side div.quarter{height:300px;}body #board div.side div.quarter.top{margin-bottom:80px;}body #board div.side div.quarter.top div.point.odd div.triangle{border-top-color:#f0f0f0;}
-body #board div.side div.quarter.top div.point.hover-piece div.triangle{border-top-color:#ffff00;}
+body #board div.side div.quarter.top div.point.hover-piece div.triangle{border-top-color:#ffff33;}
 body #board div.side div.quarter.top div.point div.triangle{border-top-width:300px;border-top-color:#444549;border-bottom-width:0;}
 body #board div.side div.quarter.top div.point div.piece{top:222.22222222222223px;}body #board div.side div.quarter.top div.point div.piece:first-child{top:0;}
 body #board div.side div.quarter.top div.point div.piece:nth-child(2){top:44.44444444444444px;}
@@ -22,7 +22,7 @@ body #board div.side div.quarter.top div.point div.piece:nth-child(3){top:88.888
 body #board div.side div.quarter.top div.point div.piece:nth-child(4){top:133.33333333333331px;}
 body #board div.side div.quarter.top div.point div.piece:nth-child(5){top:177.77777777777777px;}
 body #board div.side div.quarter.bottom div.point.odd div.triangle{border-bottom-color:#f0f0f0;}
-body #board div.side div.quarter.bottom div.point.hover-piece div.triangle{border-bottom-color:#ffff00;}
+body #board div.side div.quarter.bottom div.point.hover-piece div.triangle{border-bottom-color:#ffff33;}
 body #board div.side div.quarter.bottom div.point div.triangle{border-bottom-width:300px;border-bottom-color:#444549;border-top-width:0;}
 body #board div.side div.quarter.bottom div.point div.piece:first-child{top:220px;}
 body #board div.side div.quarter.bottom div.point div.piece:nth-child(2){top:175.55555555555554px;}

@@ -17,6 +17,7 @@ $(function(){
 	
 	//roll dice
 	$("div.die").click(function(){
+		$("div.die").shake();
 		$("div.die div.face").removeClass("active");
 		for (var i = 1; i < 3; i++) {
 			var roll = Math.floor(Math.random() * 6) + 1;
@@ -33,5 +34,15 @@ $(function(){
 			$(this).find("div.piece").last().draggable({revert: "invalid"});
 		});
 	}
+	
+	jQuery.fn.shake = function() {
+	    this.each(function(i) {
+		    var left = $(this).position().left;
+	        for (var x = 1; x <= 2; x++) {
+	            $(this).animate({ left: left-25 }, 10).animate({ left: left }, 50).animate({ left: left + 25 }, 10).animate({ left: left }, 50);
+	        }
+	    });
+	    return this;
+	} 
 
 });

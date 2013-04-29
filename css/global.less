@@ -1,14 +1,14 @@
 /* colors */
-@table			: #aaa;
+@table			: #aaaaaa;
 @board			: #eae3d1;
 @case			: #e2c11c;
 @point1			: #444549;
 @point2			: #f0f0f0;
-@player1		: #E07ACA;
+@player1		: #e07aca;
 @player2		: #778691;
-@hover			: yellow;
-@die_color		: #eee;
-@pip_color		: black;
+@hover			: #ffff33;
+@die			: #eeeeee;
+@pip			: #222222;
 
 
 /* dimensions */
@@ -85,7 +85,7 @@ body {
 			}
 			
 			div.die {
-				width: @die_size; height: @die_size; background-color: @die_color; .shadowed; .rounded(@pip_radius);
+				width: @die_size; height: @die_size; background-color: @die; .shadowed; .rounded(@pip_radius);
 				position: absolute; top: @point_height + (@margin * 2);  cursor: pointer;
 				&#die1 { right: (@point_width * 4) - @die_size; }
 				&#die2 { right: (@point_width * 3) - @die_size; }
@@ -95,7 +95,7 @@ body {
 					&.active { display: block; }
 
 					div.pip {
-						width: @pip_size; height: @pip_size; background-color: @pip_color; .rounded(@pip_radius);
+						width: @pip_size; height: @pip_size; background-color: @pip; .rounded(@pip_radius);
 						position: absolute;
 						&.left { left: (@die_size / 4) - @pip_radius; }
 						&.center { left: (@die_size / 2) - @pip_radius; }
