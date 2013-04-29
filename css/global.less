@@ -7,6 +7,8 @@
 @player1		: #E07ACA;
 @player2		: #778691;
 @hover			: yellow;
+@die_color		: #eee;
+@pip_color		: black;
 
 
 /* dimensions */
@@ -14,7 +16,10 @@
 @point_height	: 300px;
 @margin			: 20px;
 @piece_width	: @point_width;
-@piece_margin	: @piece_width / 1.7;
+@piece_margin	: @piece_width / 1.8;
+@die_size		: 50px;
+@pip_size		: @die_size / 5;
+@pip_radius		: @pip_size / 2;
 
 @width			: ((@point_width * 12) + (@margin * 2));
 @height			: ((@point_height * 2) + (@margin * 4));
@@ -42,32 +47,64 @@
 	opacity: 		@opacity;
 }
 
+
 body {
 	background-color: @table;
+
+	/* disable highlighting */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 	
 	#board {
 		width: @width; height: @height; background-color: @case; padding: @margin;
-		position: absolute; top: 50%; left: 50%;
+		position: absolute; top: 50%; left: 50%; .shadowed;
 		margin-top: -(@height / 2) - @margin; margin-left: -(@width / 2) - @margin;
-		.shadowed;
 		
 		div.side {
 			float: left; background-color: @board; 
+			&.left { margin-right: @margin * 2; }
 			
 			div.point {
 				float: left; position: relative; width: @point_width; height: @point_height;
+				&.player1 div.piece { background-color: @player1; }
+				&.player2 div.piece { background-color: @player2; }
 				
-				.triangle { width: 0; height: 0; border: (@point_width / 2) solid transparent; overflow: visible; }
+				div.triangle { width: 0; height: 0; border: (@point_width / 2) solid transparent; overflow: visible; }
 				
 				div.piece {
 					.rounded(@point_width / 2); .shadowed; z-index: 100;
 					width: @point_width; height: @point_width; position: absolute; 
-					&.ui-draggable { cursor: pointer; border: 1px solid black; }
+					&.ui-draggable { cursor: pointer; }
 					&.ui-draggable-dragging { .opacity; }
 				}
+			}
+			
+			div.die {
+				width: @die_size; height: @die_size; background-color: @die_color; .shadowed; .rounded(@pip_radius);
+				position: absolute; top: @point_height + (@margin * 2);  cursor: pointer;
+				&#die1 { right: (@point_width * 4) - @die_size; }
+				&#die2 { right: (@point_width * 3) - @die_size; }
+				
+				div.face { 
+					display: none; 
+					&.active { display: block; }
 
-				&.player1 div.piece { background-color: @player1; }
-				&.player2 div.piece { background-color: @player2; }
+					div.pip {
+						width: @pip_size; height: @pip_size; background-color: @pip_color; .rounded(@pip_radius);
+						position: absolute;
+						&.left { left: (@die_size / 4) - @pip_radius; }
+						&.center { left: (@die_size / 2) - @pip_radius; }
+						&.right { right: (@die_size / 4) - @pip_radius; }
+						&.top { top: (@die_size / 4) - @pip_radius; }
+						&.middle { top: (@die_size / 2) - @pip_radius; }
+						&.bottom { bottom: (@die_size / 4) - @pip_radius; }
+					}
+				}
 			}
 			
 			div.quarter { 
@@ -75,29 +112,32 @@ body {
 				&.top { 
 					margin-bottom: (@margin * 4);
 					div.point {
+						&.odd div.triangle { border-top-color: @point2; }
+						&.hover-piece div.triangle { border-top-color: @hover; }
+
 						div.triangle {
 							border-top-width: @point_height; border-top-color: @point1; border-bottom-width: 0;
 						}
 	
 						div.piece {
+							top: (@piece_margin * 5);
 							&:first-child { top: 0; }
 							&:nth-child(2) { top: @piece_margin; }
 							&:nth-child(3) { top: (@piece_margin * 2); }
 							&:nth-child(4) { top: (@piece_margin * 3); }
 							&:nth-child(5) { top: (@piece_margin * 4); }
-							&:nth-child(6) { top: (@piece_margin * 5); }
-							&:nth-child(7) { top: (@piece_margin * 6); }
-							&:nth-child(8) { top: (@piece_margin * 7); }
 						}
-						&.odd div.triangle { border-top-color: @point2; }
-						&.hover-piece div.triangle { border-top-color: @hover; }
 					}
 				}	
 				&.bottom { 
 					div.point {
+						&.odd div.triangle { border-bottom-color: @point2; }
+						&.hover-piece div.triangle { border-bottom-color: @hover; }
+
 						div.triangle {
 							border-bottom-width: @point_height; border-bottom-color: @point1; border-top-width: 0;
 						}
+
 						div.piece {
 							&:first-child { top: @point_height - @piece_width; }
 							&:nth-child(2) { top: @point_height - @piece_width - @piece_margin; }
@@ -108,13 +148,9 @@ body {
 							&:nth-child(7) { top: @point_height - @piece_width - (@piece_margin * 6); }
 							&:nth-child(8) { top: @point_height - @piece_width - (@piece_margin * 7); }
 						}
-						&.odd div.triangle { border-bottom-color: @point2; }
-						&.hover-piece div.triangle { border-bottom-color: @hover; }
 					}
 				}		
 			}
-			
-			&.left { margin-right: @margin * 2; }
 		}
 	}
 }
