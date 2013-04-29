@@ -6,6 +6,7 @@
 @point2			: #f0f0f0;
 @player1		: #E07ACA;
 @player2		: #778691;
+@hover			: yellow;
 
 
 /* dimensions */
@@ -35,6 +36,12 @@
 	background-clip:         padding-box;
 }
 
+.opacity (@opacity: 0.5) {
+	-webkit-opacity: 	@opacity;
+	-moz-opacity: 		@opacity;
+	opacity: 		@opacity;
+}
+
 body {
 	background-color: @table;
 	
@@ -48,15 +55,19 @@ body {
 			float: left; background-color: @board; 
 			
 			div.point {
-				width: 0; height: 0; border: (@point_width / 2) solid transparent; overflow: visible;
-				float: left; z-index: 0; position: relative; 
+				float: left; position: relative; width: @point_width; height: @point_height;
+				
+				.triangle { width: 0; height: 0; border: (@point_width / 2) solid transparent; overflow: visible; }
 				
 				div.piece {
-					.rounded(@point_width / 2); .shadowed; cursor: pointer;
-					width: @point_width; height: @point_width; position: absolute; left: -(@point_width / 2);
-					&.player1 { background-color: @player1; }
-					&.player2 { background-color: @player2; }
+					.rounded(@point_width / 2); .shadowed; z-index: 100;
+					width: @point_width; height: @point_width; position: absolute; 
+					&.ui-draggable { cursor: pointer; border: 1px solid black; }
+					&.ui-draggable-dragging { .opacity; }
 				}
+
+				&.player1 div.piece { background-color: @player1; }
+				&.player2 div.piece { background-color: @player2; }
 			}
 			
 			div.quarter { 
@@ -64,23 +75,29 @@ body {
 				&.top { 
 					margin-bottom: (@margin * 4);
 					div.point {
-						border-top-width: @point_height; border-top-color: @point1; border-bottom-width: 0;
-						div.piece {
-							&:first-child { top: -@point_height; }
-							&:nth-child(2) { top: -(@point_height - @piece_margin); }
-							&:nth-child(3) { top: -(@point_height - (@piece_margin * 2)); }
-							&:nth-child(4) { top: -(@point_height - (@piece_margin * 3)); }
-							&:nth-child(5) { top: -(@point_height - (@piece_margin * 4)); }
-							&:nth-child(6) { top: -(@point_height - (@piece_margin * 5)); }
-							&:nth-child(7) { top: -(@point_height - (@piece_margin * 6)); }
-							&:nth-child(8) { top: -(@point_height - (@piece_margin * 7)); }
+						div.triangle {
+							border-top-width: @point_height; border-top-color: @point1; border-bottom-width: 0;
 						}
-						&.odd { border-top-color: @point2; }
+	
+						div.piece {
+							&:first-child { top: 0; }
+							&:nth-child(2) { top: @piece_margin; }
+							&:nth-child(3) { top: (@piece_margin * 2); }
+							&:nth-child(4) { top: (@piece_margin * 3); }
+							&:nth-child(5) { top: (@piece_margin * 4); }
+							&:nth-child(6) { top: (@piece_margin * 5); }
+							&:nth-child(7) { top: (@piece_margin * 6); }
+							&:nth-child(8) { top: (@piece_margin * 7); }
+						}
+						&.odd div.triangle { border-top-color: @point2; }
+						&.hover-piece div.triangle { border-top-color: @hover; }
 					}
 				}	
 				&.bottom { 
 					div.point {
-						border-bottom-width: @point_height; border-bottom-color: @point1; border-top-width: 0;
+						div.triangle {
+							border-bottom-width: @point_height; border-bottom-color: @point1; border-top-width: 0;
+						}
 						div.piece {
 							&:first-child { top: @point_height - @piece_width; }
 							&:nth-child(2) { top: @point_height - @piece_width - @piece_margin; }
@@ -91,7 +108,8 @@ body {
 							&:nth-child(7) { top: @point_height - @piece_width - (@piece_margin * 6); }
 							&:nth-child(8) { top: @point_height - @piece_width - (@piece_margin * 7); }
 						}
-						&.odd { border-bottom-color: @point2; }
+						&.odd div.triangle { border-bottom-color: @point2; }
+						&.hover-piece div.triangle { border-bottom-color: @hover; }
 					}
 				}		
 			}

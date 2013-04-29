@@ -1,16 +1,26 @@
 //@codekit-prepend "jquery-1.9.1.min.js"
+//@codekit-prepend "jquery-ui-1.10.2.custom.min.js"
 
 $(function(){
 
-	//put pieces in place
-	//$("#point1").html("<div class='piece player1' style='top:-300px;'></div>");
-	//$("#point3").html("<div class='piece player2' style='top:-300px;'></div>");
+	setDraggable();
 	
-	var piece = {
-		html : '<div class="piece"></div>',
-		create : function(player){
-			return '<div class="piece player' + player + ' style="top:-300px;"></div>';
-		}
+	function setDraggable(){
+		$("div.piece.ui-draggable").each(function(){ 
+			$(this).draggable('disable'); 
+		});
+		$("div.point.player1").each(function(){
+			$(this).find("div.piece").last().draggable();
+		});
 	}
+	
+	$("div.point").droppable({ 
+		hoverClass: "hover-piece",
+		drop: function(event, ui) {
+			var piece = $(ui.draggable).attr("style", "").remove();
+			$(this).addClass("player1").prepend(piece);
+			setDraggable();
+		}
+	});
 
 });
