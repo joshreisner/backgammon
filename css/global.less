@@ -77,18 +77,21 @@ body {
 				div.triangle { width: 0; height: 0; border: (@point_width / 2) solid transparent; overflow: visible; }
 				
 				div.piece {
-					.rounded(@point_width / 2); .shadowed; z-index: 100;
+					.rounded(@point_width / 2); z-index: 100;
+					.shadowed;
 					width: @point_width; height: @point_width; position: absolute; 
-					&.ui-draggable { cursor: pointer; }
-					&.ui-draggable-dragging { .opacity; }
+					&.ui-draggable {
+						cursor: pointer; 
+						&:hover { .opacity; }
+					}
 				}
 			}
 			
 			div.die {
 				width: @die_size; height: @die_size; background-color: @die; .shadowed; .rounded(@pip_radius);
 				position: absolute; top: @point_height + (@margin * 2);  cursor: pointer;
-				&#die1 { right: (@point_width * 4) - @die_size; }
-				&#die2 { right: (@point_width * 3) - @die_size; }
+				&#die1 { left: (@point_width * 9) - @pip_radius; }
+				&#die2 { left: (@point_width * 10) - @pip_radius; }
 				
 				div.face { 
 					display: none; 
@@ -105,6 +108,12 @@ body {
 						&.bottom { bottom: (@die_size / 4) - @pip_radius; }
 					}
 				}
+			}
+			
+			div#message {
+				font-family: 'Satisfy', cursive; position: absolute; top: @point_height + @margin; 
+				color: @point1; font-size: @margin * 1.8; width: @point_width * 6; left: @margin; height: @margin * 4;
+				line-height: @margin * 4; text-align: center; display: none; cursor: default;
 			}
 			
 			div.quarter { 

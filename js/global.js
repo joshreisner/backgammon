@@ -5,6 +5,8 @@ $(function(){
 
 	setDraggable();
 	
+	$("#message").fadeIn();
+	
 	$("div.point:not(.player2)").droppable({ 
 		hoverClass: "hover-piece",
 		drop: function(event, ui) {
