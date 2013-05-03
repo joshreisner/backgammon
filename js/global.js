@@ -3,10 +3,10 @@
 
 $(function(){
 
-	setDraggable();
+	//showMessage("Roll to decide who goes first");
+	showMessage("Roll to get started");
 	
-	$("#message").fadeIn();
-	
+	/*
 	$("div.point:not(.player2)").droppable({ 
 		hoverClass: "hover-piece",
 		drop: function(event, ui) {
@@ -16,14 +16,15 @@ $(function(){
 			setDraggable();
 		}
 	});
+	*/
 	
 	//roll dice
 	$("div.die").click(function(){
 		$("div.die").shake();
-		$("div.die div.face").removeClass("active");
 		for (var i = 1; i < 3; i++) {
 			var roll = Math.floor(Math.random() * 6) + 1;
-			$("div#die" + i).find("div.face[data-id=" + roll + "]").addClass("active");
+			$("div#die" + i).addClass("active").attr("data-value", roll);
+			setDraggable();
 		}
 	});
 	
@@ -33,8 +34,34 @@ $(function(){
 		});
 
 		$("div.point.player1").each(function(){
-			$(this).find("div.piece").last().draggable({revert: "invalid"});
+			$(this).find("div.piece").last().draggable({
+				revert: "invalid",
+				start: function(event, ui){
+					var position = $(this).parent().attr("data-id");
+
+					$("div.die.active").each(function(){
+						$("div.point[data-id=" + (position - $(this).attr("data-value")) + "]").droppable({ 
+							drop: function(event, ui) {
+								var piece = $(ui.draggable).remove();
+								$(this).addClass("player1").prepend('<div class="piece"></div>');
+								setDraggable();
+							}
+						});
+						
+					});
+				},
+				stop: function(event, ui){
+					//remove droppable
+					//remove active from used die
+				}
+			});
 		});
+	}
+	
+	function showMessage(str) {
+		$message = $("#message");
+		if ($message.is(":visible")) $message.fadeOut();
+		$message.html(str).fadeIn();
 	}
 	
 	jQuery.fn.shake = function() {
